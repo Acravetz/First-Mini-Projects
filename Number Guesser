@@ -1,0 +1,65 @@
+# We're going to generate a random number and we're going to track how many times it takes to the user to guess the number
+import random
+
+# Here is how we generate a random number in python
+random.randrange(0, 11)
+# The end number is not included, is the upper bound
+# if you put just one number as a parameter, it will generate a random number between 0 and 10
+
+#We want to ask the users to guess the number, and every single time they guess, we're going to say if they were above or below the number,
+# so they can do it in a reasonable number of guesses
+
+#The first thing we want to ask the user is how large is the number they want to generate
+#We'll assume that the number will start at 0 and then we'll ask to type a number as the top bound that we'll generate
+
+top_of_range =  input("Type a number: ")
+
+#We have to make sure the user types a number and not a string or any other type of data, or in our case a number below zero
+#So if the user types a number, the outcome from input will be in a string type, and then we'll convert to an integer
+
+if top_of_range.isdigit():
+    top_of_range = int(top_of_range)
+
+    if top_of_range <= 0:
+        print("Please type a number larger than 0 next time.")
+        quit()
+else:
+    print("Please type a number next time.")
+    quit()
+
+#If we passed through user mistakes, we can now turn the string number to an int and use it to generate our random number
+random_number = random.randrange(0, top_of_range)
+guesses = 0
+
+#In a while loop, the keyword break will stop the loop as soon the line of code is entered
+#The continue keyword will automatically brings us back to the top of our loop
+
+#Now we want the user to keep typing number until they guess the right top_of_range
+while True:
+    guesses += 1
+    #each time the user try to guess, it will add 1 to the number of guesses
+    user_guess = input("Make a guess: ")
+    #Also here we need to make sure the user types an integer
+    if user_guess.isdigit():
+        user_guess = int(user_guess)
+    else:
+        print("Please type a number next time.")
+        continue
+
+    if user_guess == random_number:
+        print("That's it!")
+        break
+    elif user_guess > random_number:
+        print("You were above the number!")
+    else:
+        print("You were below the number!")
+
+#After we get out of the loop, we'll gonna tell the user how many guesses they used to guess
+#Another way to print multiple things on the same line is to use commas. This was we don't need a space cause the commas
+#will automatically add spaces in between them.
+
+print("You got it in", guesses, "guesses.")
+
+#In our case we didn't have to turn guesses to a string, that's beacuse the print statement is smart enough to understand
+#that it is an int and it will turn it to a string for us
+#The above print line with commas, it's the same thing as doing this: print("You got it in" + str(guesses) + " guesses.")
